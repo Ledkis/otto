@@ -17,6 +17,8 @@
 
 package com.squareup.otto;
 
+import android.util.Log;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -86,6 +88,9 @@ class EventHandler {
       throw new IllegalStateException(toString() + " has been invalidated and can no longer handle events.");
     }
     try {
+      if(Bus.VERBOSE)
+        Log.v(Bus.TAG_BUS_HANDLE, target.getClass().getSimpleName() + " : " + method.getName() + " ( " + event + " )");
+
       method.invoke(target, event);
     } catch (IllegalAccessException e) {
       throw new AssertionError(e);

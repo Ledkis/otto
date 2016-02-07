@@ -17,6 +17,8 @@
 
 package com.squareup.otto;
 
+import android.util.Log;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -85,6 +87,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Jake Wharton
  */
 public class Bus {
+
+  public static final String TAG = "OttoBus";
+
+  public static final String TAG_BUS_POST = TAG + ":Post";
+
+  public static final String TAG_BUS_HANDLE = TAG + ":Handle";
+
+  public static final Boolean VERBOSE = true;
+
   public static final String DEFAULT_IDENTIFIER = "default";
 
   /** All registered event handlers, indexed by event type. */
@@ -333,6 +344,9 @@ public class Bus {
     if (!dispatched && !(event instanceof DeadEvent)) {
       post(new DeadEvent(this, event));
     }
+
+    if(VERBOSE)
+      Log.v(TAG_BUS_POST, "new " + event);
 
     dispatchQueuedEvents();
   }

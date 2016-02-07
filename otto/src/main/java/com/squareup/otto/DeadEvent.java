@@ -26,6 +26,8 @@ package com.squareup.otto;
  */
 public class DeadEvent {
 
+  public static final String TAG = "DeadEvent";
+
   public final Object source;
   public final Object event;
 
@@ -40,4 +42,8 @@ public class DeadEvent {
     this.event = event;
   }
 
+  @Override
+  public String toString() {
+    return TAG + " ( " + event.getClass().getSimpleName() + " )";
+  }
 }
